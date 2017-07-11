@@ -1,5 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'jacoco'
+apply plugin: 'maven'
 
 buildscript {
     // inspired by https://github.com/Netflix/gradle-template
@@ -93,3 +94,19 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
+
+task generatePom << {
+    pom {
+        project {
+            inceptionYear '2014'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/maven/pom.xml")
+}
+
